@@ -39,6 +39,8 @@ The running search function uses a Lambda dependency layer.
 
 other-scripts/swagger.json contains the deployed API definition.
 other-scripts/lex-config.json contains the current search intent and slot settings.
+SearchIntent uses an optional RawQuery slot to capture labels outside its examples.
+The search function keeps multiword labels together.
 Connection passwords and generated frontend config.js files are excluded.
 
 ## CloudFormation

@@ -49,6 +49,10 @@
       {
         "priority": 1,
         "slotId": "LWQTFGYUSF"
+      },
+      {
+        "priority": 2,
+        "slotId": "ONT5SE69M6"
       }
     ],
     "initialResponseSetting": {
@@ -245,6 +249,61 @@
       },
       "multipleValuesSetting": {
         "allowMultipleValues": true
+      }
+    },
+    {
+      "slotId": "ONT5SE69M6",
+      "slotName": "RawQuery",
+      "slotTypeId": "AMAZON.FreeFormInput",
+      "valueElicitationSetting": {
+        "slotConstraint": "Optional",
+        "promptSpecification": {
+          "messageGroups": [
+            {
+              "message": {
+                "plainTextMessage": {
+                  "value": "What would you like to find in your photos?"
+                }
+              }
+            }
+          ],
+          "maxRetries": 0,
+          "allowInterrupt": true,
+          "messageSelectionStrategy": "Random",
+          "promptAttemptsSpecification": {
+            "Initial": {
+              "allowInterrupt": true,
+              "allowedInputTypes": {
+                "allowAudioInput": true,
+                "allowDTMFInput": true
+              },
+              "audioAndDTMFInputSpecification": {
+                "startTimeoutMs": 4000,
+                "audioSpecification": {
+                  "maxLengthMs": 15000,
+                  "endTimeoutMs": 640
+                },
+                "dtmfSpecification": {
+                  "maxLength": 513,
+                  "endTimeoutMs": 5000,
+                  "deletionCharacter": "*",
+                  "endCharacter": "#"
+                }
+              },
+              "textInputSpecification": {
+                "startTimeoutMs": 30000
+              }
+            }
+          }
+        },
+        "slotCaptureSetting": {
+          "elicitationCodeHook": {
+            "enableCodeHookInvocation": true
+          }
+        }
+      },
+      "multipleValuesSetting": {
+        "allowMultipleValues": false
       }
     }
   ],

@@ -2,6 +2,7 @@
 import json
 import logging
 import os
+import re
 import uuid
 from urllib.parse import urlparse
 
@@ -78,6 +79,63 @@ def extract_keywords(lex_response):
     return keywords
 
 
+def extract_search_text(lex_response):
+    intent = lex_response.get("sessionState", {}).get("intent", {})
+    if intent.get("name") != "SearchIntent":
+        return []
+    slot = (intent.get("slots") or {}).get("RawQuery") or {}
+    value = slot.get("value") or {}
+    text = value.get("originalValue") or value.get("interpretedValue") or ""
+    text = " ".join(text.lower().split())
+    if not text:
+        return []
+
+    # A quoted label is searched as one phrase, including words such as "and".
+    if len(text) > 1 and text[0] == text[-1] and text[0] in "\"'":
+        return [text[1:-1].strip()] if text[1:-1].strip() else []
+
+    text, request_prefix = re.subn(
+        r"^(?:please\s+)?(?:show\s+me|find|search(?:\s+for)?|look\s+for|"
+        r"i\s+(?:want|would\s+like)\s+to\s+see)(?:\s+|$)", "", text, count=1
+    )
+    text, photo_prefix = re.subn(
+        r"^(?:photos?|pictures?|images?)\s+(?:of|with|containing|showing)(?:\s+|$)",
+        "", text, count=1
+    )
+    if request_prefix or photo_prefix:
+        text = re.sub(r"\s+in\s+them[.!?]?$", "", text)
+        text = text.rstrip(".!?").strip()
+    if not text:
+        return []
+
+    # Keep multiword labels intact and include each requested alternative.
+    phrases = [text] + re.split(r"\s+(?:and|or)\s+|\s*&\s*|,\s*", text)
+    return list(dict.fromkeys(phrase.strip() for phrase in phrases if phrase.strip()))
+
+
+def recognize_search(query):
+    settings = {
+        "botId": os.environ["LEX_BOT_ID"],
+        "botAliasId": os.environ["LEX_BOT_ALIAS_ID"],
+        "localeId": os.environ["LEX_LOCALE_ID"],
+    }
+    response = lex.recognize_text(**settings, sessionId=uuid.uuid4().hex, text=query)
+    keywords = extract_keywords(response)
+
+    # Capture every query as well, since a multi-value slot can omit one label.
+    captured = lex.recognize_text(
+        **settings,
+        sessionId=uuid.uuid4().hex,
+        text=query,
+        sessionState={
+            "intent": {"name": "SearchIntent", "state": "InProgress", "slots": {}},
+            "dialogAction": {"type": "ElicitSlot", "slotToElicit": "RawQuery"},
+        },
+    )
+    # Do not broaden "alloy wheel" to "wheel" using a partial custom-slot match.
+    return extract_search_text(captured) or keywords
+
+
 def lambda_handler(event, context):
     parameters = event.get("queryStringParameters") or {}
     query = parameters.get("q") or event.get("q") or ""
@@ -93,15 +151,7 @@ def lambda_handler(event, context):
         return respond(200, {"results": []})
 
     try:
-        lex_response = lex.recognize_text(
-            botId=os.environ["LEX_BOT_ID"],
-            botAliasId=os.environ["LEX_BOT_ALIAS_ID"],
-            localeId=os.environ["LEX_LOCALE_ID"],
-            sessionId=uuid.uuid4().hex,
-            text=query
-        )
-
-        keywords = extract_keywords(lex_response)
+        keywords = recognize_search(query)
         logger.info("KEYWORDS: %s", json.dumps(keywords))
 
         if not keywords:
