@@ -1,6 +1,6 @@
 # Assignment 3 - Photo Album
 
-NetID: fg726
+Furkan Gokmenoglu (fg726)
 Individual submission.
 
 This application searches uploaded photos using labels.
