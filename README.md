@@ -17,14 +17,14 @@ http://hw3-frontend-fg726.s3-website-us-east-1.amazonaws.com
 
 ## CodePipeline
 
-The two pipelines use these source repositories:
+Both pipelines use this repository's main branch.
 
-- https://github.com/schumi0001/cloud-hw3-backend
-- https://github.com/schumi0001/cloud-hw3-frontend
+- hw3-backend-pipeline: builds and deploys both Lambda functions.
+- hw3-frontend-pipeline: uploads the frontend to S3.
 
-Pushing to either source repository triggers its pipeline.
-This repository contains the code arranged for submission.
-Its buildspec paths have been adjusted for this folder layout.
+A push to main starts both pipelines.
+The buildspecs are other-scripts/backend-buildspec.yml
+and front-end/buildspec.yml.
 
 ## Checks
 
