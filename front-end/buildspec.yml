@@ -1,0 +1,20 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 22
+      python: 3.12
+  build:
+    on-failure: ABORT
+    commands:
+      - node front-end/tests/sdk.cjs
+      - bash -n front-end/scripts/deploy.sh
+      - bash front-end/scripts/deploy.sh
+
+artifacts:
+  base-directory: front-end/public
+  files:
+    - '**/*'
+  exclude-paths:
+    - config.example.js

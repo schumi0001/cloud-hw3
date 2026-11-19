@@ -1,0 +1,10 @@
+# Exact dependency versions from the working hw3-search-dependencies:1 layer.
+boto3==1.44.3
+botocore==1.44.3
+certifi==2026.10.23
+elasticsearch==7.13.4
+jmespath==1.1.0
+python-dateutil==2.9.0.post0
+s3transfer==0.19.3
+six==1.17.0
+urllib3==1.26.20

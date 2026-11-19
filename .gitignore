@@ -1,0 +1,8 @@
+__pycache__/
+*.py[cod]
+.venv/
+.env
+/dist/
+/artifacts/
+front-end/public/config.js
+other-scripts/cloudformation/frontend/config.js

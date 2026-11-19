@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Photo Album</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Photo Album</h1>
+
+  <section>
+    <h2>Search photos</h2>
+    <p>Search for a label or enter a sentence, such as "show me horses and cars".</p>
+    <form id="search-form">
+      <input id="query" aria-label="Search query" type="search" placeholder="Enter your search" maxlength="1024" required>
+      <button id="search-button" type="submit">Search</button>
+    </form>
+    <p id="search-status" class="status" role="status" aria-live="polite"></p>
+    <div id="results"></div>
+  </section>
+
+  <section>
+    <h2>Upload a photo</h2>
+    <form id="upload-form">
+      <label for="photo-file">Photo (JPG or PNG, up to 10 MB)</label>
+      <input id="photo-file" type="file" accept="image/jpeg,image/png" required>
+
+      <label for="custom-labels">Custom labels (optional, separated by commas)</label>
+      <input id="custom-labels" type="text" placeholder="Sam, Sally" maxlength="1800">
+
+      <button id="upload-button" type="submit">Upload</button>
+    </form>
+    <p id="upload-status" class="status" role="status" aria-live="polite"></p>
+  </section>
+
+  <noscript>Please enable JavaScript to use this page.</noscript>
+  <script src="sdk/lib/axios/dist/axios.standalone.js"></script>
+  <script src="sdk/lib/CryptoJS/rollups/crypto-js.js"></script>
+  <script src="sdk/lib/CryptoJS/rollups/sha256.js"></script>
+  <script src="sdk/lib/CryptoJS/components/hmac.js"></script>
+  <script src="sdk/lib/CryptoJS/components/enc-base64.js"></script>
+  <script src="sdk/lib/url-template/url-template.js"></script>
+  <script src="sdk/lib/apiGatewayCore/sigV4Client.js"></script>
+  <script src="sdk/lib/apiGatewayCore/apiGatewayClient.js"></script>
+  <script src="sdk/lib/apiGatewayCore/simpleHttpClient.js"></script>
+  <script src="sdk/lib/apiGatewayCore/utils.js"></script>
+  <script src="sdk/apigClient.js"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

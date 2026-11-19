@@ -1,0 +1,347 @@
+{
+  "region": "us-east-1",
+  "botId": "AINOTZSLQB",
+  "botVersion": "DRAFT",
+  "localeId": "en_US",
+  "botAliasId": "TSTALIASID",
+  "intent": {
+    "intentId": "420JPWY17A",
+    "intentName": "SearchIntent",
+    "sampleUtterances": [
+      {
+        "utterance": "{Keywords}"
+      },
+      {
+        "utterance": "show me {Keywords}"
+      },
+      {
+        "utterance": "find {Keywords}"
+      },
+      {
+        "utterance": "search for {Keywords}"
+      },
+      {
+        "utterance": "photos of {Keywords}"
+      },
+      {
+        "utterance": "pictures of {Keywords}"
+      },
+      {
+        "utterance": "show me photos of {Keywords}"
+      },
+      {
+        "utterance": "show me pictures of {Keywords}"
+      },
+      {
+        "utterance": "find photos with {Keywords}"
+      },
+      {
+        "utterance": "show me photos with {Keywords}"
+      },
+      {
+        "utterance": "show me photos with {Keywords} in them"
+      },
+      {
+        "utterance": "I want to see {Keywords}"
+      }
+    ],
+    "slotPriorities": [
+      {
+        "priority": 1,
+        "slotId": "LWQTFGYUSF"
+      }
+    ],
+    "initialResponseSetting": {
+      "nextStep": {
+        "dialogAction": {
+          "type": "InvokeDialogCodeHook"
+        },
+        "intent": {}
+      },
+      "codeHook": {
+        "enableCodeHookInvocation": true,
+        "active": true,
+        "postCodeHookSpecification": {
+          "successNextStep": {
+            "dialogAction": {
+              "type": "ElicitSlot",
+              "slotToElicit": "Keywords"
+            },
+            "intent": {}
+          },
+          "failureNextStep": {
+            "dialogAction": {
+              "type": "EndConversation"
+            },
+            "intent": {}
+          },
+          "timeoutNextStep": {
+            "dialogAction": {
+              "type": "EndConversation"
+            },
+            "intent": {}
+          }
+        }
+      }
+    }
+  },
+  "slots": [
+    {
+      "slotId": "LWQTFGYUSF",
+      "slotName": "Keywords",
+      "slotTypeId": "TZ66PL0RU8",
+      "valueElicitationSetting": {
+        "slotConstraint": "Required",
+        "promptSpecification": {
+          "messageGroups": [
+            {
+              "message": {
+                "plainTextMessage": {
+                  "value": "What would you like to find in your photos?"
+                }
+              }
+            }
+          ],
+          "maxRetries": 4,
+          "allowInterrupt": true,
+          "messageSelectionStrategy": "Random",
+          "promptAttemptsSpecification": {
+            "Initial": {
+              "allowInterrupt": true,
+              "allowedInputTypes": {
+                "allowAudioInput": true,
+                "allowDTMFInput": true
+              },
+              "audioAndDTMFInputSpecification": {
+                "startTimeoutMs": 4000,
+                "audioSpecification": {
+                  "maxLengthMs": 15000,
+                  "endTimeoutMs": 640
+                },
+                "dtmfSpecification": {
+                  "maxLength": 513,
+                  "endTimeoutMs": 5000,
+                  "deletionCharacter": "*",
+                  "endCharacter": "#"
+                }
+              },
+              "textInputSpecification": {
+                "startTimeoutMs": 30000
+              }
+            },
+            "Retry1": {
+              "allowInterrupt": true,
+              "allowedInputTypes": {
+                "allowAudioInput": true,
+                "allowDTMFInput": true
+              },
+              "audioAndDTMFInputSpecification": {
+                "startTimeoutMs": 4000,
+                "audioSpecification": {
+                  "maxLengthMs": 15000,
+                  "endTimeoutMs": 640
+                },
+                "dtmfSpecification": {
+                  "maxLength": 513,
+                  "endTimeoutMs": 5000,
+                  "deletionCharacter": "*",
+                  "endCharacter": "#"
+                }
+              },
+              "textInputSpecification": {
+                "startTimeoutMs": 30000
+              }
+            },
+            "Retry2": {
+              "allowInterrupt": true,
+              "allowedInputTypes": {
+                "allowAudioInput": true,
+                "allowDTMFInput": true
+              },
+              "audioAndDTMFInputSpecification": {
+                "startTimeoutMs": 4000,
+                "audioSpecification": {
+                  "maxLengthMs": 15000,
+                  "endTimeoutMs": 640
+                },
+                "dtmfSpecification": {
+                  "maxLength": 513,
+                  "endTimeoutMs": 5000,
+                  "deletionCharacter": "*",
+                  "endCharacter": "#"
+                }
+              },
+              "textInputSpecification": {
+                "startTimeoutMs": 30000
+              }
+            },
+            "Retry3": {
+              "allowInterrupt": true,
+              "allowedInputTypes": {
+                "allowAudioInput": true,
+                "allowDTMFInput": true
+              },
+              "audioAndDTMFInputSpecification": {
+                "startTimeoutMs": 4000,
+                "audioSpecification": {
+                  "maxLengthMs": 15000,
+                  "endTimeoutMs": 640
+                },
+                "dtmfSpecification": {
+                  "maxLength": 513,
+                  "endTimeoutMs": 5000,
+                  "deletionCharacter": "*",
+                  "endCharacter": "#"
+                }
+              },
+              "textInputSpecification": {
+                "startTimeoutMs": 30000
+              }
+            },
+            "Retry4": {
+              "allowInterrupt": true,
+              "allowedInputTypes": {
+                "allowAudioInput": true,
+                "allowDTMFInput": true
+              },
+              "audioAndDTMFInputSpecification": {
+                "startTimeoutMs": 4000,
+                "audioSpecification": {
+                  "maxLengthMs": 15000,
+                  "endTimeoutMs": 640
+                },
+                "dtmfSpecification": {
+                  "maxLength": 513,
+                  "endTimeoutMs": 5000,
+                  "deletionCharacter": "*",
+                  "endCharacter": "#"
+                }
+              },
+              "textInputSpecification": {
+                "startTimeoutMs": 30000
+              }
+            }
+          }
+        },
+        "slotCaptureSetting": {
+          "captureNextStep": {
+            "dialogAction": {
+              "type": "EndConversation"
+            },
+            "intent": {}
+          },
+          "failureNextStep": {
+            "dialogAction": {
+              "type": "StartIntent"
+            },
+            "intent": {
+              "name": "FallbackIntent"
+            }
+          },
+          "elicitationCodeHook": {
+            "enableCodeHookInvocation": true
+          }
+        }
+      },
+      "multipleValuesSetting": {
+        "allowMultipleValues": true
+      }
+    }
+  ],
+  "slotTypes": [
+    {
+      "slotTypeId": "TZ66PL0RU8",
+      "slotTypeName": "PhotoLabel",
+      "slotTypeValues": [
+        {
+          "sampleValue": {
+            "value": "car"
+          }
+        },
+        {
+          "sampleValue": {
+            "value": "sports car"
+          }
+        },
+        {
+          "sampleValue": {
+            "value": "wheel"
+          }
+        },
+        {
+          "sampleValue": {
+            "value": "tire"
+          }
+        },
+        {
+          "sampleValue": {
+            "value": "horse"
+          }
+        },
+        {
+          "sampleValue": {
+            "value": "andalusian horse"
+          }
+        },
+        {
+          "sampleValue": {
+            "value": "animal"
+          }
+        },
+        {
+          "sampleValue": {
+            "value": "person"
+          }
+        },
+        {
+          "sampleValue": {
+            "value": "dog"
+          }
+        },
+        {
+          "sampleValue": {
+            "value": "cat"
+          }
+        },
+        {
+          "sampleValue": {
+            "value": "bird"
+          }
+        },
+        {
+          "sampleValue": {
+            "value": "tree"
+          }
+        },
+        {
+          "sampleValue": {
+            "value": "park "
+          }
+        },
+        {
+          "sampleValue": {
+            "value": "sam"
+          }
+        },
+        {
+          "sampleValue": {
+            "value": "sally"
+          }
+        },
+        {
+          "sampleValue": {
+            "value": "uploadtest"
+          }
+        },
+        {
+          "sampleValue": {
+            "value": "cougar"
+          }
+        }
+      ],
+      "valueSelectionSetting": {
+        "resolutionStrategy": "OriginalValue"
+      }
+    }
+  ]
+}
